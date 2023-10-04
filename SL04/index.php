@@ -8,6 +8,13 @@
  * POST
  */
 
+
+ $App = require "private.php";
+
+ $db = $App['database'];
+
+//  die(var_dump($dbconn));
+
 $routes = [
     "/" => "controllers/index.php",
     "/about" => "controllers/about.php",
@@ -44,6 +51,20 @@ if (array_key_exists($_SERVER['REQUEST_URI'] , $routes)){
 /**
  * PDO - connect to database
  *
- */
+//  */
+// $servername = "localhost";
+// $username = "root";
+// $password = "";
+
+try {
+  $conn = new PDO("mysql:host=$db[servername];dbname=$db[dbname]", $db['username'], $db['drowssap']);
+  // set the PDO error mode to exception
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  echo "Connected successfully";
+} catch(PDOException $e) {
+  echo "Connection failed: " . $e->getMessage();
+
+
+}
 
 //  require 'views/index.view.php';
